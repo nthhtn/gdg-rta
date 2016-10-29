@@ -68,7 +68,7 @@ public class MatchActivity extends Activity {
             });
         }
 
-        DatabaseReference points = Network.firebaseDatabase.getReference("games/"+roomId+"/points");
+        DatabaseReference points = Network.firebaseDatabase.getReference("game/"+roomId+"/points");
 
 
     }

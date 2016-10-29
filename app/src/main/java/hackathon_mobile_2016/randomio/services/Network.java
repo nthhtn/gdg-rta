@@ -10,12 +10,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
-import hackathon_mobile_2016.randomio.model.GameMatch;
+import hackathon_mobile_2016.randomio.model.Game;
 import hackathon_mobile_2016.randomio.model.NumberBall;
-import hackathon_mobile_2016.randomio.model.Player;
-import hackathon_mobile_2016.randomio.model.Room;
 
 /**
  * Created by ductr on 10/29/2016.
@@ -24,18 +21,18 @@ public class Network {
     private static String TAG="ductri";
     public static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    public static void serverStartMatch(String roomId, final GameMatch gameMatch, final MatchService.GameMatchLoading gameMatchLoading) {
+    public static void serverStartMatch(String roomId, final Game game, final MatchService.GameMatchLoading gameMatchLoading) {
         DatabaseReference gamesManager = firebaseDatabase.getReference("games/" + roomId);
         gamesManager.child("current").setValue(0);
 
-        for (NumberBall p:gameMatch.points) {
+        for (NumberBall p: game.points) {
             gamesManager.child("points").push().setValue(p);
         }
 
         gamesManager.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                gameMatchLoading.success(gameMatch.points);
+                gameMatchLoading.success(game.points);
             }
 
             @Override
@@ -51,9 +48,9 @@ public class Network {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG, "Client start match -- Game has inited on server");
-                GameMatch gameMatch = new GameMatch();
+                Game game = new Game();
                 Iterator<DataSnapshot> iter = dataSnapshot.getChildren().iterator();
-                gameMatch.current = Integer.parseInt(iter.next().getValue().toString());
+                game.current = Integer.parseInt(iter.next().getValue().toString());
                 ArrayList<NumberBall> numberBallList = new ArrayList<NumberBall>();
 
 
@@ -62,8 +59,8 @@ public class Network {
                     NumberBall p= iterator.next().getValue(NumberBall.class);
                     numberBallList.add(p);
                 }
-                gameMatch.points = numberBallList;
-                gameMatchLoading.success(gameMatch.points);
+                game.points = numberBallList;
+                gameMatchLoading.success(game.points);
             }
 
             @Override
