@@ -1,11 +1,11 @@
 package hackathon_mobile_2016.randomio.services;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import hackathon_mobile_2016.randomio.enums.GameMode;
-import hackathon_mobile_2016.randomio.enums.Team;
 import hackathon_mobile_2016.randomio.model.GameMatch;
 import hackathon_mobile_2016.randomio.model.NumberBall;
 
@@ -15,16 +15,16 @@ import hackathon_mobile_2016.randomio.model.NumberBall;
 
 public class MatchService {
 
-    public static List<NumberBall> generateNewMatch(int maxNumber, GameMode gameMode) {
+    public static List<NumberBall> generateNewMatch(int maxNumber, int gameMode) {
         List<NumberBall> listNumberBalls = randomMatch(maxNumber, gameMode);
 
         return listNumberBalls;
     }
 
-    private static List<NumberBall> randomMatch(int maxNumber, GameMode gameMode) {
+    private static List<NumberBall> randomMatch(int maxNumber, int gameMode) {
         Random rand = new Random();
         int sizeX, sizeY;
-        if (gameMode == GameMode.EASY) {
+        if (gameMode == 0) {
             sizeX = 16;
             sizeY = 9;
         } else {
@@ -63,17 +63,31 @@ public class MatchService {
     }
 
     public static NumberBall getNumberBallInfo(int number, int matchId) {
-        return new NumberBall(number, Team.NO_TEAM);
+        return new NumberBall(number, 0);
     }
 
-    public static void chooseNumber(int number, Team chosenTeam) {
+    public static void chooseNumber(int number, int chosenTeam) {
 
     }
 
-    public static void startMatch(String roomId) {
+    public static void serverStartMatch(List<NumberBall> points, String roomId, GameMatchLoading gameMatchLoading) {
+
         GameMatch gameMatch = new GameMatch();
         gameMatch.current = 1;
-        gameMatch.points = (ArrayList<NumberBall>)generateNewMatch(200, GameMode.MEDIUM);
-        Network.startMatch(roomId, gameMatch);
+        gameMatch.points = (ArrayList<NumberBall>)points;
+        Network.serverStartMatch(roomId, gameMatch, gameMatchLoading);
+
+        //Update room status
+        DatabaseReference roomManager = Network.firebaseDatabase.getReference("rooms/" + roomId);
+        roomManager.child("status").setValue(2);
+
+    }
+
+    public static void clientStartMatch(String roomId,  GameMatchLoading gameMatchLoading) {
+        Network.clientStartMatch(roomId, gameMatchLoading);
+    }
+
+    public interface GameMatchLoading {
+        void success(List<NumberBall> numberBalls);
     }
 }

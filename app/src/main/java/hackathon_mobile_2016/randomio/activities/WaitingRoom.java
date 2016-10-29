@@ -1,5 +1,6 @@
 package hackathon_mobile_2016.randomio.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +23,8 @@ import java.util.Iterator;
 
 import hackathon_mobile_2016.randomio.R;
 import hackathon_mobile_2016.randomio.model.Player;
+import hackathon_mobile_2016.randomio.model.Room;
+import hackathon_mobile_2016.randomio.services.Network;
 import hackathon_mobile_2016.randomio.utils.Utils;
 
 public class WaitingRoom extends AppCompatActivity {
@@ -28,6 +32,7 @@ public class WaitingRoom extends AppCompatActivity {
 
     private TableLayout tableLayout;
     private String roomId;
+    private String playerId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +45,7 @@ public class WaitingRoom extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.button3);
 
-        DatabaseReference roomMemberManager = Utils.firebaseDatabase.getReference("RoomMembers/"+roomId);
+        DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("RoomMembers/"+roomId);
         roomMemberManager.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -66,6 +71,26 @@ public class WaitingRoom extends AppCompatActivity {
                 Log.i(TAG, "Cancel");
             }
         });
+
+        Network.firebaseDatabase.getReference("rooms/"+roomId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i(TAG, "Room status change");
+                Room room = dataSnapshot.getValue(Room.class);
+                if (room.status==2) {
+                    Intent intent = new Intent(getApplicationContext(), MatchActivity.class);
+                    intent.putExtra("isHost", "false");
+                    intent.putExtra("roomId", roomId);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i(TAG, "fail");
+            }
+        });
+
 
     }
 

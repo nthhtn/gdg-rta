@@ -1,7 +1,6 @@
 package hackathon_mobile_2016.randomio.model;
 
 
-import hackathon_mobile_2016.randomio.enums.Team;
 
 /**
  * Created by bubu on 28/10/2016.
@@ -9,19 +8,19 @@ import hackathon_mobile_2016.randomio.enums.Team;
 public class NumberBall {
 
     private int value;
-    private Team owner;
+    private int owner;
     private double x;
     private double y;
     public NumberBall() {
 
     }
-    public NumberBall(int value, Team owner) {
+    public NumberBall(int value, int owner) {
         this.value = value;
         this.owner = owner;
     }
 
     public NumberBall(int value) {
-        this(value, Team.NO_TEAM);
+        this(value, 0);
     }
 
     public int getValue() {
@@ -32,11 +31,11 @@ public class NumberBall {
         this.value = value;
     }
 
-    public Team getOwner() {
+    public int getOwner() {
         return owner;
     }
 
-    public void setOwner(Team owner) {
+    public void setOwner(int owner) {
         this.owner = owner;
     }
 

@@ -8,19 +8,19 @@ public class Room {
     public String name;
     public int mode;
     public int maxPlayer;
-    public boolean isReady;
+    public int status; //0: not ready all, 1: ready all, 2: start
     public String ownerId;
 
     public Room() {
 
     }
 
-    public Room(int noPlayerCurrent, String name, int mode, int maxPlayer, boolean isReady, String ownerId) {
+    public Room(int noPlayerCurrent, String name, int mode, int maxPlayer, int status, String ownerId) {
         this.noPlayerCurrent = noPlayerCurrent;
         this.name = name;
         this.mode = mode;
         this.maxPlayer = maxPlayer;
-        this.isReady = isReady;
+        this.status = status;
         this.ownerId = ownerId;
     }
 }

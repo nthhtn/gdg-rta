@@ -12,36 +12,64 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import hackathon_mobile_2016.randomio.R;
-import hackathon_mobile_2016.randomio.enums.GameMode;
-import hackathon_mobile_2016.randomio.enums.Team;
+
 import hackathon_mobile_2016.randomio.model.NumberBall;
 import hackathon_mobile_2016.randomio.services.MatchService;
+import hackathon_mobile_2016.randomio.services.Network;
 
 public class MatchActivity extends Activity {
-
+    private String TAG = "ductri";
     private RelativeLayout layout;
 
-    private Team currentTeam;
-    private GameMode gameMode;
+    private int currentTeam;
+    private int gameMode;
     private int maxNumber;
+    private boolean isHost = true;
+    private String roomId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isHost = Boolean.parseBoolean(getIntent().getStringExtra("isHost"));
+        roomId = getIntent().getStringExtra("roomId");
+
         setContentView(R.layout.activity_match);
-
         layout = (RelativeLayout) findViewById(R.id.matchView);
-
-        currentTeam = Team.FIRST_TEAM;
-        gameMode = GameMode.HARD;
+        currentTeam = 1;
+        gameMode = 2;
         maxNumber = 100;
-        List<NumberBall> listNumberBalls = MatchService.generateNewMatch(maxNumber, gameMode);
-        List<Button> listButtons = convertToButtons(listNumberBalls);
-        replaceAllNumberButtonToLayout(listButtons);
+        if (isHost) {
+            final List<NumberBall> listNumberBalls = MatchService.generateNewMatch(200, 1);
+            MatchService.serverStartMatch(listNumberBalls, roomId, new MatchService.GameMatchLoading() {
+                @Override
+                public void success(List<NumberBall> numberBalls) {
+
+                    final List<Button> listButtons = convertToButtons(numberBalls);
+                    replaceAllNumberButtonToLayout(listButtons);
+                }
+            });
+        } else {
+            MatchService.clientStartMatch(roomId, new MatchService.GameMatchLoading() {
+                @Override
+                public void success(List<NumberBall> numberBalls) {
+                    Log.i(TAG, Integer.toString(numberBalls.size()));
+                    final List<Button> listButtons = convertToButtons(numberBalls);
+                    replaceAllNumberButtonToLayout(listButtons);
+                }
+            });
+        }
+
+        DatabaseReference points = Network.firebaseDatabase.getReference("games/"+roomId+"/points");
+
 
     }
 
@@ -71,7 +99,7 @@ public class MatchActivity extends Activity {
                     Button button = (Button) view;
                     int chosenNumber = Integer.parseInt(button.getText().toString());
                     NumberBall numberInfo = MatchService.getNumberBallInfo(chosenNumber, 123);
-                    if (numberInfo.getOwner() == Team.NO_TEAM) {
+                    if (numberInfo.getOwner() == 0) {
                         MatchService.chooseNumber(chosenNumber, currentTeam);
                         button.setBackground(getResources().getDrawable(R.mipmap.ic_red_circle));
                         return;

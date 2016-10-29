@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import com.google.firebase.database.DatabaseReference;
 
 import hackathon_mobile_2016.randomio.R;
+import hackathon_mobile_2016.randomio.services.Network;
 import hackathon_mobile_2016.randomio.utils.Utils;
 import hackathon_mobile_2016.randomio.model.Room;
 
@@ -33,7 +34,7 @@ public class Mainform extends AppCompatActivity {
         createRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference roomsManager = Utils.firebaseDatabase.getReference("rooms");
+                DatabaseReference roomsManager = Network.firebaseDatabase.getReference("rooms");
                 //Add new room
                 String key = roomsManager.push().getKey();
                 int gameMode;
@@ -49,7 +50,7 @@ public class Mainform extends AppCompatActivity {
                 }
 
                 Room room = new Room(1, roomNameEditText.getText().toString(), gameMode,
-                        Integer.parseInt(maxNoPlayer.getText().toString()), false, "xxx");
+                        Integer.parseInt(maxNoPlayer.getText().toString()), 0, "xxx");
                 roomsManager.child(key).setValue(room);
             }
         });
