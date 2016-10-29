@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MatchActivity.class);
                 intent.putExtra("isHost", "true");
                 intent.putExtra("roomId", "-KVFHhZrr2qZ1d-rNnDt");
-                intent.putExtra("team", 1);
-                intent.putExtra("mode", 1);
-                intent.putExtra("maxNumber", 10);
+                intent.putExtra("team", "1");
+                intent.putExtra("mode", "1");
+                intent.putExtra("maxNumber", "10");
                 startActivity(intent);
             }
         });

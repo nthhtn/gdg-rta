@@ -2,13 +2,13 @@ package hackathon_mobile_2016.randomio.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 
@@ -38,6 +38,7 @@ public class MatchActivity extends Activity {
     private int maxNumber;
     private boolean isHost = true;
     private String roomId;
+    List<View> listViews = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +58,23 @@ public class MatchActivity extends Activity {
                 @Override
                 public void success(List<NumberBall> numberBalls) {
 
-                    final List<View> listButtons = convertToViews(numberBalls);
-                    replaceAllNumberButtonToLayout(listButtons);
+                    listViews = convertToViews(numberBalls);
+                    replaceAllNumberButtonToLayout(listViews);
                 }
 
                 @Override
                 public void renderChoosenNumber(int number) {
                     Log.i(TAG, "Number "+Integer.toString(number)+ " is choosen");
+                    for (View v:listViews) {
+                        NumberView numberView = (NumberView)v;
+                        if (numberView.getText().equals(Integer.toString(number))) {
+                            if (!numberView.isClicked) {
+                                numberView.runDrawCircle();
+                            }
+
+                            break;
+                        }
+                    }
                 }
             });
         } else {
@@ -71,13 +82,23 @@ public class MatchActivity extends Activity {
                 @Override
                 public void success(List<NumberBall> numberBalls) {
                     Log.i(TAG, Integer.toString(numberBalls.size()));
-                    final List<View> listButtons = convertToViews(numberBalls);
-                    replaceAllNumberButtonToLayout(listButtons);
+                    listViews = convertToViews(numberBalls);
+                    replaceAllNumberButtonToLayout(listViews);
                 }
 
                 @Override
                 public void renderChoosenNumber(int number) {
                     Log.i(TAG, "Number "+Integer.toString(number)+ " is choosen");
+                    for (View v:listViews) {
+                        NumberView numberView = (NumberView)v;
+                        if (numberView.getText().equals(Integer.toString(number))) {
+                            if (!numberView.isClicked) {
+                                numberView.runDrawCircle();
+                            }
+
+                            break;
+                        }
+                    }
                 }
 
             });
@@ -117,6 +138,7 @@ public class MatchActivity extends Activity {
                     if (numberInfo.getOwner() == 0) {
                         MatchService.chooseNumber(roomId, chosenNumber, currentTeam);
                         //button.setBackground(getResources().getDrawable(R.mipmap.ic_red_circle));
+                        view.isClicked = true;
                         view.runDrawCircle();
 
                         return;

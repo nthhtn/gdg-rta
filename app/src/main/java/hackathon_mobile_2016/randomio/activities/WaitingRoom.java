@@ -80,9 +80,9 @@ public class WaitingRoom extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MatchActivity.class);
                     intent.putExtra("isHost", "false");
                     intent.putExtra("roomId", roomId);
-                    intent.putExtra("team", 1); //TODO huhu, Linh lam chua xong
-                    intent.putExtra("mode", room.mode);
-                    intent.putExtra("maxNumber", room.maxPlayer);
+                    intent.putExtra("team", "1"); //TODO huhu, Linh lam chua xong
+                    intent.putExtra("mode", Integer.toString(room.mode));
+                    intent.putExtra("maxNumber", Integer.toString(room.maxPlayer));
                     startActivity(intent);
                 }
             }

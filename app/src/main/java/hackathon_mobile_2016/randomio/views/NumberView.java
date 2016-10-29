@@ -24,6 +24,8 @@ public class NumberView extends View {
     private float angle;
     private String text;
 
+    public boolean isClicked=false;
+
     public NumberView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
