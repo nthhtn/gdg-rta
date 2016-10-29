@@ -66,16 +66,16 @@ public class MatchService {
         return new NumberBall(number, 0);
     }
 
-    public static void chooseNumber(int number, int chosenTeam) {
-
+    public static void chooseNumber(String roomId, int number, int chosenTeam) {
+        choseNumber(roomId, number, chosenTeam);
     }
 
-    public static void serverStartMatch(List<NumberBall> points, String roomId, GameMatchLoading gameMatchLoading) {
+    public static void serverStartMatch(List<NumberBall> points, String roomId, GameRender gameMatchLoading) {
 
-        Game game = new Game();
-        game.current = 1;
-        game.points = (ArrayList<NumberBall>)points;
-        Network.serverStartMatch(roomId, game, gameMatchLoading);
+        Game gameMatch = new Game();
+        gameMatch.current = 1;
+        gameMatch.points = (ArrayList<NumberBall>)points;
+        Network.serverStartMatch(roomId, gameMatch, gameMatchLoading);
 
         //Update room status
         DatabaseReference roomManager = Network.firebaseDatabase.getReference("room/" + roomId);
@@ -83,11 +83,18 @@ public class MatchService {
 
     }
 
-    public static void clientStartMatch(String roomId,  GameMatchLoading gameMatchLoading) {
+    public static void clientStartMatch(String roomId,  GameRender gameMatchLoading) {
         Network.clientStartMatch(roomId, gameMatchLoading);
     }
 
-    public interface GameMatchLoading {
-        void success(List<NumberBall> numberBalls);
+    public static void choseNumber(String roomId, int number, int team) {
+        Network.choseNumber(roomId, number, team);
     }
+
+    public interface GameRender {
+        void success(List<NumberBall> numberBalls);
+        void renderChoosenNumber(int number);
+    }
+
+
 }
