@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import hackathon_mobile_2016.randomio.enums.GameMode;
+import hackathon_mobile_2016.randomio.enums.Team;
 import hackathon_mobile_2016.randomio.model.NumberBall;
 
 /**
@@ -58,6 +59,14 @@ public class MatchService {
         }
 
         return listNumberBalls;
+    }
+
+    public static NumberBall getNumberBallInfo(int number, int matchId) {
+        return new NumberBall(number, Team.NO_TEAM);
+    }
+
+    public static void chooseNumber(int number, Team chosenTeam) {
+
     }
 
 }
