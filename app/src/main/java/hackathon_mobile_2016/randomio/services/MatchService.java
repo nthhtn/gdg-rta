@@ -78,7 +78,7 @@ public class MatchService {
         Network.serverStartMatch(roomId, game, gameMatchLoading);
 
         //Update room status
-        DatabaseReference roomManager = Network.firebaseDatabase.getReference("rooms/" + roomId);
+        DatabaseReference roomManager = Network.firebaseDatabase.getReference("room/" + roomId);
         roomManager.child("status").setValue(2);
 
     }

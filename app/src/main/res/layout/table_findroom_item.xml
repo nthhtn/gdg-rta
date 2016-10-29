@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow
+    android:background="#000000"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/columnIdDemo1"
+        android:text="@string/id_room_demo"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:background="#FFFFFF"
+        android:layout_span="1"
+        android:padding="3dip"
+        android:layout_margin="1dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/columnPlayerDemo2"
+        android:layout_margin="1dp"
+        android:padding="3dip"
+        android:background="#FFFFFF"
+        android:text="@string/name_room_demo"
+        android:layout_height="match_parent"
+        android:textColor="@android:color/black"
+        android:layout_span="1"
+        android:layout_width="0dp"
+        android:layout_weight="4"/>
+
+    <RelativeLayout
+        android:padding="3dip"
+        android:background="#FFFFFF"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp"
+        android:layout_span="1"
+        android:layout_width="0dp"
+        android:layout_weight="2">
+
+        <ImageView
+            android:id="@+id/imgMode"
+            android:layout_width="@dimen/mode_easy_width"
+            android:layout_height="@dimen/mode_easy_height"
+            android:background="@mipmap/easy_mode"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearNum"
+        android:background="#FFFFFF"
+        android:padding="3dip"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp"
+        android:layout_span="1"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+</TableRow>

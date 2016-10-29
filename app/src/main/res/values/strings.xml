@@ -17,11 +17,23 @@
     <string name="player_name">Player</string>
     <string name="team">Team</string>
     <string name="status">Status</string>
+    <string name="begin">Begin</string>
     <string name="ready">Ready</string>
+    <string name="option">Option</string>
+    <string name="option_kick">Kick</string>
+    <string name="option_buzz">Buzz</string>
 
     <string name="name_room_demo">AoyamaRoom</string>
     <string name="player_demo">HellAngel</string>
     <string name="id_room_demo">1412</string>
     <string name="status_demo">Ready!</string>
+
+    <string name="create_room_btn">Create Room</string>
+    <string name="random_btn">Random</string>
+
+
+    <string name="room_name1">Lets play</string>
+    <string name="room_name2">Wanna play with numbers</string>
+    <string name="room_name3">Theres paper there will be numbers</string>
 
 </resources>
