@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:background="@mipmap/background2"
-    tools:context="hackathon_mobile_2016.randomio.activities.Manage">
+    tools:context="hackathon_mobile_2016.randomio.activities.ManageRoomActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
