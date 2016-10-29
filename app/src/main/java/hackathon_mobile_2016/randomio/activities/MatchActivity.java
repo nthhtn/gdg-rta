@@ -12,10 +12,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,34 +38,47 @@ public class MatchActivity extends Activity {
         super.onCreate(savedInstanceState);
         isHost = Boolean.parseBoolean(getIntent().getStringExtra("isHost"));
         roomId = getIntent().getStringExtra("roomId");
+        currentTeam = Integer.parseInt(getIntent().getStringExtra("team"));
+        gameMode = Integer.parseInt(getIntent().getStringExtra("mode"));
+        maxNumber = Integer.parseInt(getIntent().getStringExtra("maxNumber"));
 
         setContentView(R.layout.activity_match);
         layout = (RelativeLayout) findViewById(R.id.matchView);
-        currentTeam = 1;
-        gameMode = 2;
-        maxNumber = 100;
+
+
         if (isHost) {
             final List<NumberBall> listNumberBalls = MatchService.generateNewMatch(200, 1);
-            MatchService.serverStartMatch(listNumberBalls, roomId, new MatchService.GameMatchLoading() {
+            MatchService.serverStartMatch(listNumberBalls, roomId, new MatchService.GameRender() {
                 @Override
                 public void success(List<NumberBall> numberBalls) {
 
                     final List<Button> listButtons = convertToButtons(numberBalls);
                     replaceAllNumberButtonToLayout(listButtons);
                 }
+
+                @Override
+                public void renderChoosenNumber(int number) {
+                    Log.i(TAG, "Number "+Integer.toString(number)+ " is choosen");
+                }
             });
         } else {
-            MatchService.clientStartMatch(roomId, new MatchService.GameMatchLoading() {
+            MatchService.clientStartMatch(roomId, new MatchService.GameRender() {
                 @Override
                 public void success(List<NumberBall> numberBalls) {
                     Log.i(TAG, Integer.toString(numberBalls.size()));
                     final List<Button> listButtons = convertToButtons(numberBalls);
                     replaceAllNumberButtonToLayout(listButtons);
                 }
+
+                @Override
+                public void renderChoosenNumber(int number) {
+                    Log.i(TAG, "Number "+Integer.toString(number)+ " is choosen");
+                }
+
             });
         }
 
-        DatabaseReference points = Network.firebaseDatabase.getReference("game/"+roomId+"/points");
+        DatabaseReference points = Network.firebaseDatabase.getReference("game/"+roomId+"/point");
 
     }
 
@@ -99,7 +109,7 @@ public class MatchActivity extends Activity {
                     int chosenNumber = Integer.parseInt(button.getText().toString());
                     NumberBall numberInfo = MatchService.getNumberBallInfo(chosenNumber, 123);
                     if (numberInfo.getOwner() == 0) {
-                        MatchService.chooseNumber(chosenNumber, currentTeam);
+                        MatchService.chooseNumber(roomId, chosenNumber, currentTeam);
                         button.setBackground(getResources().getDrawable(R.mipmap.ic_red_circle));
                         return;
                     }

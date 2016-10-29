@@ -6,13 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,9 +19,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import hackathon_mobile_2016.randomio.R;
-import hackathon_mobile_2016.randomio.model.JoinRoom;
-import hackathon_mobile_2016.randomio.model.RoomMember;
 import hackathon_mobile_2016.randomio.model.Room;
+import hackathon_mobile_2016.randomio.model.RoomMember;
 import hackathon_mobile_2016.randomio.services.Network;
 
 public class WaitingRoom extends AppCompatActivity {
@@ -33,22 +29,22 @@ public class WaitingRoom extends AppCompatActivity {
     private TableLayout tableLayout;
     private String roomId;
     private String playerId;
+    private Room room = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting_room);
 
         roomId = getIntent().getStringExtra("roomId");
-        roomId="-KVFHhZrr2qZ1d-rNnDt";
+
+
 
 
         tableLayout=(TableLayout)findViewById(R.id.tableWaiting);
 
+        DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("RoomMember/"+roomId);
 
-        Button button = (Button) findViewById(R.id.button3);
-
-        DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("roomMember/"+roomId);
-
+        //Update room members
         roomMemberManager.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -64,6 +60,7 @@ public class WaitingRoom extends AppCompatActivity {
 
                 for (RoomMember p:playersList) {
                     Log.i(TAG, "--------");
+
                 }
             }
 
@@ -73,12 +70,8 @@ public class WaitingRoom extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
         //Tracking room status to start game
-        Network.firebaseDatabase.getReference("rooms/"+roomId).addValueEventListener(new ValueEventListener() {
-=======
         Network.firebaseDatabase.getReference("room/"+roomId).addValueEventListener(new ValueEventListener() {
->>>>>>> 2e48443159e6f8b4861c60df8846d27d3ef0cb13
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG, "Room status change");
@@ -87,6 +80,9 @@ public class WaitingRoom extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MatchActivity.class);
                     intent.putExtra("isHost", "false");
                     intent.putExtra("roomId", roomId);
+                    intent.putExtra("team", 1); //TODO huhu, Linh lam chua xong
+                    intent.putExtra("mode", room.mode);
+                    intent.putExtra("maxNumber", room.maxPlayer);
                     startActivity(intent);
                 }
             }
@@ -97,7 +93,7 @@ public class WaitingRoom extends AppCompatActivity {
             }
         });
 
-        JoinRoom.joinRoom(roomId);
+
     }
 
     private void playerJoining(RoomMember player) {

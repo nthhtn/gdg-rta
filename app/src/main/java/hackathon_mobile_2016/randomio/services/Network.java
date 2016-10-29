@@ -21,18 +21,37 @@ public class Network {
     private static String TAG="ductri";
     public static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    public static void serverStartMatch(String roomId, final Game game, final MatchService.GameMatchLoading gameMatchLoading) {
-        DatabaseReference gamesManager = firebaseDatabase.getReference("games/" + roomId);
+    public static void serverStartMatch(final String roomId, final Game gameMatch, final MatchService.GameRender gameRender) {
+        DatabaseReference gamesManager = firebaseDatabase.getReference("game/" + roomId);
         gamesManager.child("current").setValue(0);
+        gamesManager.child("lastNumber").child("id").setValue("-1");
+        gamesManager.child("lastNumber").child("value").setValue("-1");
 
-        for (NumberBall p: game.points) {
+        for (NumberBall p:gameMatch.points) {
             gamesManager.child("points").push().setValue(p);
         }
 
         gamesManager.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                gameMatchLoading.success(game.points);
+                //Update map to server success, update interface
+                gameRender.success(gameMatch.points);
+
+
+                //TODO Lap code :(
+                DatabaseReference lastNumber = Network.firebaseDatabase.getReference("game/"+roomId+"/lastNumber");
+                lastNumber.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int number = Integer.parseInt(dataSnapshot.child("value").getValue().toString());
+                        gameRender.renderChoosenNumber(number);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -40,27 +59,48 @@ public class Network {
 
             }
         });
+
+
     }
 
-    public static void clientStartMatch(String roomId, final MatchService.GameMatchLoading gameMatchLoading) {
-        DatabaseReference gamesManager = firebaseDatabase.getReference("games/" + roomId);
+
+    public static void clientStartMatch(final String roomId, final MatchService.GameRender gameRender) {
+        DatabaseReference gamesManager = firebaseDatabase.getReference("game/" + roomId);
         gamesManager.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG, "Client start match -- Game has inited on server");
-                Game game = new Game();
+                Game gameMatch = new Game();
                 Iterator<DataSnapshot> iter = dataSnapshot.getChildren().iterator();
-                game.current = Integer.parseInt(iter.next().getValue().toString());
+
+                gameMatch.current = Integer.parseInt(iter.next().getValue().toString());
                 ArrayList<NumberBall> numberBallList = new ArrayList<NumberBall>();
 
+                //TODO NGUY HIEM
+                iter.next();
 
                 Iterator<DataSnapshot> iterator = iter.next().getChildren().iterator();
                 while (iterator.hasNext()) {
-                    NumberBall p= iterator.next().getValue(NumberBall.class);
+                    NumberBall p = iterator.next().getValue(NumberBall.class);
                     numberBallList.add(p);
                 }
-                game.points = numberBallList;
-                gameMatchLoading.success(game.points);
+                gameMatch.points = numberBallList;
+                gameRender.success(gameMatch.points);
+
+                //TODO Lap code :(
+                DatabaseReference lastNumber = Network.firebaseDatabase.getReference("game/"+roomId+"/lastNumber");
+                lastNumber.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int number = Integer.parseInt(dataSnapshot.child("value").getValue().toString());
+                        gameRender.renderChoosenNumber(number);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -68,7 +108,11 @@ public class Network {
                 Log.i(TAG, "fail");
             }
         });
+    }
 
-
+    public static void choseNumber(String roomId, int number, int team) {
+        DatabaseReference lastNumber = Network.firebaseDatabase.getReference("game/"+roomId+"/lastNumber");
+        lastNumber.child("value").setValue(number);
+        lastNumber.child("team").setValue(team);
     }
 }
