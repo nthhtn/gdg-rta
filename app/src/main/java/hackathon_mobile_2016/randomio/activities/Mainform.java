@@ -1,17 +1,16 @@
-package hackathon_mobile_2016.randomio;
+package hackathon_mobile_2016.randomio.activities;
 
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 
-import hackathon_mobile_2016.randomio.model.GameMode;
+import hackathon_mobile_2016.randomio.R;
+import hackathon_mobile_2016.randomio.utils.Utils;
 import hackathon_mobile_2016.randomio.model.Room;
 
 public class Mainform extends AppCompatActivity {
