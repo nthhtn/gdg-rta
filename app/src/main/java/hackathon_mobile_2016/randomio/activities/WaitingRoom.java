@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import hackathon_mobile_2016.randomio.R;
-import hackathon_mobile_2016.randomio.model.Player;
+import hackathon_mobile_2016.randomio.model.JoinRoom;
+import hackathon_mobile_2016.randomio.model.RoomMember;
 import hackathon_mobile_2016.randomio.model.Room;
 import hackathon_mobile_2016.randomio.services.Network;
-import hackathon_mobile_2016.randomio.utils.Utils;
 
 public class WaitingRoom extends AppCompatActivity {
     private String TAG="ductri";
@@ -39,30 +39,31 @@ public class WaitingRoom extends AppCompatActivity {
         setContentView(R.layout.activity_waiting_room);
 
         roomId = getIntent().getStringExtra("roomId");
+        roomId="-KVFHhZrr2qZ1d-rNnDt";
 
 
         tableLayout=(TableLayout)findViewById(R.id.tableWaiting);
 
-        DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("RoomMembers/"+roomId);
 
-        //Update room members
+        Button button = (Button) findViewById(R.id.button3);
+
+        DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("roomMember/"+roomId);
+
         roomMemberManager.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 clearListView();
-                ArrayList<Player> playersList = new ArrayList<Player>();
+                ArrayList<RoomMember> playersList = new ArrayList<RoomMember>();
                 Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
                 while (iterator.hasNext()) {
-                    Player p= iterator.next().getValue(Player.class);
+                    RoomMember p= iterator.next().getValue(RoomMember.class);
                     playersList.add(p);
                     playerJoining(p);
                 }
 
-                for (Player p:playersList) {
+                for (RoomMember p:playersList) {
                     Log.i(TAG, "--------");
-                    Log.i(TAG, p.name);
-                    Log.i(TAG, Integer.toString(p.team));
                 }
             }
 
@@ -72,8 +73,12 @@ public class WaitingRoom extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         //Tracking room status to start game
         Network.firebaseDatabase.getReference("rooms/"+roomId).addValueEventListener(new ValueEventListener() {
+=======
+        Network.firebaseDatabase.getReference("room/"+roomId).addValueEventListener(new ValueEventListener() {
+>>>>>>> 2e48443159e6f8b4861c60df8846d27d3ef0cb13
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG, "Room status change");
@@ -92,10 +97,10 @@ public class WaitingRoom extends AppCompatActivity {
             }
         });
 
-
+        JoinRoom.joinRoom(roomId);
     }
 
-    private void playerJoining(Player player) {
+    private void playerJoining(RoomMember player) {
         View tableRow = LayoutInflater.from(getApplicationContext()).inflate(R.layout.table_item,null,false);
         TextView history_display_no  = (TextView) tableRow.findViewById(R.id.columnId);
         TextView history_display_date  = (TextView) tableRow.findViewById(R.id.columnTeam);
@@ -103,7 +108,7 @@ public class WaitingRoom extends AppCompatActivity {
         //TextView history_display_quantity  = (TextView) tableRow.findViewById(R.id.history_display_quantity);
 
         history_display_no.setText("1");
-        history_display_date.setText(player.name);
+        history_display_date.setText(player.getName());
         tableLayout.addView(tableRow);
     }
 

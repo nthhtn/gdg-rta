@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import hackathon_mobile_2016.randomio.model.GameMatch;
+import hackathon_mobile_2016.randomio.model.Game;
 import hackathon_mobile_2016.randomio.model.NumberBall;
 
 /**
@@ -72,10 +72,10 @@ public class MatchService {
 
     public static void serverStartMatch(List<NumberBall> points, String roomId, GameMatchLoading gameMatchLoading) {
 
-        GameMatch gameMatch = new GameMatch();
-        gameMatch.current = 1;
-        gameMatch.points = (ArrayList<NumberBall>)points;
-        Network.serverStartMatch(roomId, gameMatch, gameMatchLoading);
+        Game game = new Game();
+        game.current = 1;
+        game.points = (ArrayList<NumberBall>)points;
+        Network.serverStartMatch(roomId, game, gameMatchLoading);
 
         //Update room status
         DatabaseReference roomManager = Network.firebaseDatabase.getReference("rooms/" + roomId);
