@@ -17,7 +17,7 @@
     <string name="player_name">Player</string>
     <string name="team">Team</string>
     <string name="status">Status</string>
-    <string name="begin">Begin</string>
+    <string name="ready">Ready</string>
 
     <string name="name_room_demo">AoyamaRoom</string>
     <string name="player_demo">HellAngel</string>
