@@ -1,4 +1,4 @@
-package hackathon_mobile_2016.randomio;
+package hackathon_mobile_2016.randomio.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +19,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import hackathon_mobile_2016.randomio.R;
 import hackathon_mobile_2016.randomio.model.Player;
+import hackathon_mobile_2016.randomio.utils.Utils;
 
 public class WaitingRoom extends AppCompatActivity {
     private String TAG="ductri";
