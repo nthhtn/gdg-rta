@@ -1,10 +1,12 @@
-package hackathon_mobile_2016.randomio;
+package hackathon_mobile_2016.randomio.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import hackathon_mobile_2016.randomio.R;
 
 public class WaitingRoom extends AppCompatActivity {
 

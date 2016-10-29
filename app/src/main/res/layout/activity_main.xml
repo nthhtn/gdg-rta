@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="hackathon_mobile_2016.randomio.MainActivity">
+    tools:context="hackathon_mobile_2016.randomio.activities.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,4 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Load Activity Waiting Room"/>
+
+    <Button
+        android:id="@+id/buttonLoadMatch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Load Activity Match"/>
 </LinearLayout>

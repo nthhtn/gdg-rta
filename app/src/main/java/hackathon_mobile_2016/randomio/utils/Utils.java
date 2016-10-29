@@ -1,4 +1,4 @@
-package hackathon_mobile_2016.randomio;
+package hackathon_mobile_2016.randomio.utils;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
