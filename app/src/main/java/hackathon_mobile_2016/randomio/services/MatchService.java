@@ -6,6 +6,7 @@ import java.util.Random;
 
 import hackathon_mobile_2016.randomio.enums.GameMode;
 import hackathon_mobile_2016.randomio.enums.Team;
+import hackathon_mobile_2016.randomio.model.GameMatch;
 import hackathon_mobile_2016.randomio.model.NumberBall;
 
 /**
@@ -69,4 +70,10 @@ public class MatchService {
 
     }
 
+    public static void startMatch(String roomId) {
+        GameMatch gameMatch = new GameMatch();
+        gameMatch.current = 1;
+        gameMatch.points = (ArrayList<NumberBall>)generateNewMatch(200, GameMode.MEDIUM);
+        Network.startMatch(roomId, gameMatch);
+    }
 }

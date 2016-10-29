@@ -12,7 +12,9 @@ public class NumberBall {
     private Team owner;
     private double x;
     private double y;
+    public NumberBall() {
 
+    }
     public NumberBall(int value, Team owner) {
         this.value = value;
         this.owner = owner;
@@ -53,4 +55,7 @@ public class NumberBall {
     public void setX(double x) {
         this.x = x;
     }
+
+
+
 }

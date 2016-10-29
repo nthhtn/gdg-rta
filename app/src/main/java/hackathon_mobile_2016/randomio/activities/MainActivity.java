@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), WaitingRoom.class);
+                intent.putExtra("roomId", "KVDa3tIWCsaoi4Ot7qq");
+                //extras.putString("roomId", "KVDa3tIWCsaoi4Ot7qq");
                 startActivity(intent);
             }
         });
@@ -37,9 +39,12 @@ public class MainActivity extends AppCompatActivity {
         buttonLoadMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                
                 Intent intent = new Intent(getApplicationContext(), MatchActivity.class);
                 startActivity(intent);
             }
         });
+
+
     }
 }
