@@ -5,5 +5,5 @@ package hackathon_mobile_2016.randomio.enums;
  */
 
 public enum GameMode {
-    EASY, MEDIUM, HARD
+    EASY, MEDIUM, HARD;
 }
