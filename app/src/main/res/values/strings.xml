@@ -23,5 +23,6 @@
     <string name="player_demo">HellAngel</string>
     <string name="id_room_demo">1412</string>
     <string name="status_demo">Ready!</string>
+    <string name="facebook_app_id">213018225796036</string>
 
 </resources>

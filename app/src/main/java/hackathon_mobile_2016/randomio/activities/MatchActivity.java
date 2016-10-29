@@ -12,8 +12,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 
-
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
@@ -22,10 +24,12 @@ import java.util.List;
 import hackathon_mobile_2016.randomio.R;
 
 import hackathon_mobile_2016.randomio.model.NumberBall;
+import hackathon_mobile_2016.randomio.model.RoomMember;
 import hackathon_mobile_2016.randomio.services.MatchService;
 
 import hackathon_mobile_2016.randomio.services.Network;
 
+import hackathon_mobile_2016.randomio.services.ScoreGameService;
 import hackathon_mobile_2016.randomio.views.NumberView;
 
 
@@ -40,6 +44,8 @@ public class MatchActivity extends Activity {
     private String roomId;
     List<View> listViews = null;
 
+    private RoomMember player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +54,9 @@ public class MatchActivity extends Activity {
         currentTeam = Integer.parseInt(getIntent().getStringExtra("team"));
         gameMode = Integer.parseInt(getIntent().getStringExtra("mode"));
         maxNumber = Integer.parseInt(getIntent().getStringExtra("maxNumber"));
+        String playerId = getIntent().getStringExtra("playerId");
+        String playerName = getIntent().getStringExtra("playerName");
+        player = new RoomMember(playerId, playerName, 0, currentTeam, 1);
 
         setContentView(R.layout.activity_match);
         layout = (RelativeLayout) findViewById(R.id.matchView);
@@ -106,7 +115,31 @@ public class MatchActivity extends Activity {
 
         DatabaseReference points = Network.firebaseDatabase.getReference("game/"+roomId+"/point");
 
+        //Tracking score
+        DatabaseReference team1 = Network.firebaseDatabase.getReference("game/"+roomId+"/team1");
+        team1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ScoreGameService.team1 = Integer.parseInt(dataSnapshot.getValue().toString());
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        DatabaseReference team2 = Network.firebaseDatabase.getReference("game/"+roomId+"/team2");
+        team2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ScoreGameService.team2 = Integer.parseInt(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private List<View> convertToViews(List<NumberBall> listNumberBalls) {
@@ -140,7 +173,15 @@ public class MatchActivity extends Activity {
                         //button.setBackground(getResources().getDrawable(R.mipmap.ic_red_circle));
                         view.isClicked = true;
                         view.runDrawCircle();
-
+                        if (player.getTeam()==1) {
+                            ScoreGameService.team1++;
+                            ScoreGameService.updateScoreTeam1(roomId, ScoreGameService.team1);
+                            Log.i(TAG, "Score team 1: "+Integer.toString(ScoreGameService.team1));
+                        } else {
+                            ScoreGameService.team2++;
+                            ScoreGameService.updateScoreTeam2(roomId, ScoreGameService.team2);
+                            Log.i(TAG, "Score team 2: "+Integer.toString(ScoreGameService.team2));
+                        }
                         return;
                     }
                 }

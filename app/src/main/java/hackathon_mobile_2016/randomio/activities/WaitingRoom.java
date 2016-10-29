@@ -30,15 +30,14 @@ public class WaitingRoom extends AppCompatActivity {
     private String roomId;
     private String playerId;
     private Room room = null;
+    private RoomMember player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting_room);
 
         roomId = getIntent().getStringExtra("roomId");
-
-
-
 
         tableLayout=(TableLayout)findViewById(R.id.tableWaiting);
 
@@ -80,9 +79,11 @@ public class WaitingRoom extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MatchActivity.class);
                     intent.putExtra("isHost", "false");
                     intent.putExtra("roomId", roomId);
-                    intent.putExtra("team", "1"); //TODO huhu, Linh lam chua xong
+                    intent.putExtra("team", "2"); //TODO huhu, Linh lam chua xong
                     intent.putExtra("mode", Integer.toString(room.mode));
                     intent.putExtra("maxNumber", Integer.toString(room.maxPlayer));
+                    intent.putExtra("playerId","1");
+                    intent.putExtra("playerName", "ductri");
                     startActivity(intent);
                 }
             }
