@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database-connection/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="0e4d53465cc141bec58f18a894e4c4e80633fa32">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-connection-9.4.0_a1b150b870b75894219d258d7e61ceac7d7242d5/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.4.0_6e32e7c5b45d39b74ebffbbb9a989f2ba886a096/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="88848548ab56d4fbf3d2d1b0c85bf1ff9b4c1f4b">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-9.4.0_8e3eb2bb06d236d0fb1aa1193e099069e6cb2ddd/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="3b7173b3df4c7029699919414400041f64519e34">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-9.4.0_8e48b48e389c9c4855177217d1d6254599d16d0e/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="8a36d229011e75f0caef408e1adf0d3fd4d94e02">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tasks-9.4.0_2818defa39b6c55c8ca0bcf6624a6f7032985bcc/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="18b5697c65c4fe5b7381613b8b8ae9ac52e26fa7">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-9.4.0_3e684fd5bbdb5db3ba73bbc4327314fb58c342f2/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="98014bf60b6bd41bbd8be23be7266f017dcb4dc9">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_aaf4c7b77c8f6b4483abf44623a2e1786c9a2717/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.4.0_9b0dc5cf231fb2250b556d3b196c67240e7b5e79/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.4.0_ddd5556a1f8142d05ef5858b0c23d01c6c73216d/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="84bf369090a8f7e293817efbd6ccf31ada1be32b">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-9.4.0_394472a196a1feec4ab7fe0887e556403b4e5704/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_2e68ea6e478acf689aa70945efa28584de76b7d0/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics-impl/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="a440fb3fec30ff925e9f601cc458fb6671834cb2">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-9.4.0_d1cf19cd80fa66e4646cee0676b4217124db00d9/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-9.4.0_0082feb23583bcc8366457a181b5d57693f2b681/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.4.0_f337ef9f6b8b72b50ab1d9218c57bcca9f48e883/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.4.0_f0475684dab96d6e6247e3dc1e9b2674cf0fbca7/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="618485fef3ebe12127f7622abbc9b5b39057b5c2">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.4.0_7a8fe5536eee407c8167b61a18d69217814a84fe/classes.dex" />
+    </item>
+    <item
+        jar="/home/kuro/Git/gdg-rta/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="971b513ea2609aad574f32dc196b89d425a8ebe5">
+        <dex dex="/home/kuro/Git/gdg-rta/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_27ec54fd5af3b802e4a23e2ec4d753c496b165d7/classes.dex" />
+    </item>
+
+</items>
