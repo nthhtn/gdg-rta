@@ -53,7 +53,8 @@ public class NumberView extends View {
         return text;
     }
 
-    public void runDrawCircle() {
+    public void runDrawCircle(int color) {
+        paintOfCircle.setColor(color);
         CircleAngleAnimation animation = new CircleAngleAnimation(this, -345);
         animation.setDuration(400);
         this.startAnimation(animation);

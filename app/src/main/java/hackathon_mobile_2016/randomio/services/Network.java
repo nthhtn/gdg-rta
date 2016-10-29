@@ -31,8 +31,10 @@ public class Network {
 
         DatabaseReference gamesManager = firebaseDatabase.getReference("game/" + roomId);
         gamesManager.child("current").setValue(0);
+        gamesManager.child("team1").setValue(0);
+        gamesManager.child("team2").setValue(0);
         gamesManager.child("lastNumber").child("id").setValue("-1");
-        gamesManager.child("lastNumber").child("value").setValue("-1");
+        gamesManager.child("lastNumber").child("value").setValue("0");
 
         for (NumberBall p:gameMatch.points) {
             gamesManager.child("points").push().setValue(p);

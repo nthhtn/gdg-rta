@@ -108,14 +108,14 @@ public class WaitingRoom extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG, "Room status change");
                 Room room = dataSnapshot.getValue(Room.class);
-                if (room.status == 1) {
+                if (room.status == 2) {
                     Intent intent = new Intent(getApplicationContext(), MatchActivity.class);
                     intent.putExtra("isHost", "false");
                     intent.putExtra("roomId", roomId);
                     intent.putExtra("team", "2"); //TODO huhu, Linh lam chua xong
                     intent.putExtra("mode", Integer.toString(room.mode));
                     intent.putExtra("maxNumber", Integer.toString(room.maxPlayer));
-                    intent.putExtra("playerId","1");
+                    intent.putExtra("playerId","2");
                     intent.putExtra("playerName", "ductri");
                     startActivity(intent);
                 }

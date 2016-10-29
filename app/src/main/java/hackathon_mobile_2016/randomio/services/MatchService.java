@@ -44,7 +44,7 @@ public class MatchService {
         // random
         for (int i = 0; i < maxNumber; i++) {
             int index = rand.nextInt(length);
-            while (a[index]) {
+            while (a[index] || index%sizeX<2) {
                 index = rand.nextInt(length);
             }
             a[index] = true;
@@ -54,8 +54,21 @@ public class MatchService {
         List<NumberBall> listNumberBalls = new ArrayList<>();
         for (int i = 0; i < maxNumber; i++) {
             NumberBall newBall = new NumberBall(i + 1);
-            newBall.setY(b[i] / sizeX + (rand.nextInt(60) / 100.0) - 0.3);
-            newBall.setX(b[i] % sizeX + (rand.nextInt(60) / 100.0) - 0.3);
+            //newBall.setY(b[i] / sizeX + (rand.nextInt(60) / 100.0) - 0.3);
+            //newBall.setX(b[i] % sizeX + (rand.nextInt(60) / 100.0) - 0.3);
+            if (b[i] / sizeX == 0) {
+                newBall.setY(b[i] / sizeX + (rand.nextInt(30) / 100.0));
+            } else if (b[i] / sizeX == sizeY - 1) {
+                newBall.setY(b[i] / sizeX - (rand.nextInt(30) / 100.0));
+            } else {
+                newBall.setY(b[i] / sizeX + (rand.nextInt(60) / 100.0) - 0.3);
+            }
+
+            if (b[i] % sizeX == sizeX - 1) {
+                newBall.setX(b[i] % sizeX + (rand.nextInt(30) / 100.0));
+            } else {
+                newBall.setX(b[i] % sizeX + (rand.nextInt(60) / 100.0) - 0.3);
+            }
             listNumberBalls.add(newBall);
         }
 
