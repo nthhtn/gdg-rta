@@ -70,7 +70,6 @@ public class MatchActivity extends Activity {
 
         DatabaseReference points = Network.firebaseDatabase.getReference("games/"+roomId+"/points");
 
-
     }
 
     private List<Button> convertToButtons(List<NumberBall> listNumberBalls) {
