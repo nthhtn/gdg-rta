@@ -16,10 +16,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.Mainform" />
-        <activity android:name=".activities.WaitingRoom"></activity>
-        <activity android:name=".activities.MatchActivity"
+        <activity android:name=".activities.WaitingRoom" />
+        <activity
+            android:name=".activities.MatchActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
