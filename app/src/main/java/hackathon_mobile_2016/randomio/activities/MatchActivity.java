@@ -73,7 +73,7 @@ public class MatchActivity extends Activity {
                     NumberBall numberInfo = MatchService.getNumberBallInfo(chosenNumber, 123);
                     if (numberInfo.getOwner() == Team.NO_TEAM) {
                         MatchService.chooseNumber(chosenNumber, currentTeam);
-                        button.setBackground(getResources().getDrawable(R.mipmap.ic_red_circle));
+                        button.setBackground(getResources().getDrawable(R.mipmap.ic_red_circle_2));
                         return;
                     }
                 }
