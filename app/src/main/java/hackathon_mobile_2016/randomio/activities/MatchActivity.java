@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +17,7 @@ import hackathon_mobile_2016.randomio.enums.GameMode;
 import hackathon_mobile_2016.randomio.enums.Team;
 import hackathon_mobile_2016.randomio.model.NumberBall;
 import hackathon_mobile_2016.randomio.services.MatchService;
+import hackathon_mobile_2016.randomio.views.NumberView;
 
 public class MatchActivity extends Activity {
 
@@ -40,12 +38,11 @@ public class MatchActivity extends Activity {
         gameMode = GameMode.HARD;
         maxNumber = 100;
         List<NumberBall> listNumberBalls = MatchService.generateNewMatch(maxNumber, gameMode);
-        List<Button> listButtons = convertToButtons(listNumberBalls);
+        List<View> listButtons = convertToViews(listNumberBalls);
         replaceAllNumberButtonToLayout(listButtons);
-
     }
 
-    private List<Button> convertToButtons(List<NumberBall> listNumberBalls) {
+    private List<View> convertToViews(List<NumberBall> listNumberBalls) {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -54,44 +51,43 @@ public class MatchActivity extends Activity {
         int widthRatio = width / 16;
         int heightRatio = height / 9;
 
-        List<Button> listButtons = new ArrayList<>();
+        List<View> listButtons = new ArrayList<>();
         for (NumberBall numberBall : listNumberBalls) {
-            Button button = inflateButtonFromXML(R.layout.number_button);
-
-            button.setText(String.valueOf(numberBall.getValue()));
+            NumberView numberView = (NumberView) inflateViewFromXML(R.layout.view_number);
+            numberView.setText(String.valueOf(numberBall.getValue()));
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(80, 80);
             params.leftMargin = (int) (numberBall.getX() * widthRatio);
             params.topMargin = (int) (numberBall.getY() * heightRatio * 0.9);
-            button.setLayoutParams(params);
+            numberView.setLayoutParams(params);
 
-            button.setOnClickListener(new View.OnClickListener() {
+            numberView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    Button button = (Button) view;
-                    int chosenNumber = Integer.parseInt(button.getText().toString());
+                public void onClick(View numberView) {
+                    NumberView view = (NumberView) numberView;
+                    int chosenNumber = Integer.parseInt(view.getText());
                     NumberBall numberInfo = MatchService.getNumberBallInfo(chosenNumber, 123);
                     if (numberInfo.getOwner() == Team.NO_TEAM) {
                         MatchService.chooseNumber(chosenNumber, currentTeam);
-                        button.setBackground(getResources().getDrawable(R.mipmap.ic_red_circle_2));
+                        view.runDrawCircle();
                         return;
                     }
                 }
             });
-            listButtons.add(button);
+            listButtons.add(numberView);
         }
 
         return listButtons;
     }
 
-    private Button inflateButtonFromXML(int resource) {
+    private View inflateViewFromXML(int resource) {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return (Button) inflater.inflate(resource, null, false);
+        return inflater.inflate(resource, null, false);
     }
 
-    private void replaceAllNumberButtonToLayout(List<Button> listButtons) {
+    private void replaceAllNumberButtonToLayout(List<View> listButtons) {
         layout.removeAllViews();
-        for (Button button : listButtons) {
+        for (View button : listButtons) {
             layout.addView(button);
         }
     }

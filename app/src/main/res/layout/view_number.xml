@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hackathon_mobile_2016.randomio.views.NumberView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/circle"
+    android:layout_width="100dp"
+    android:layout_height="100dp">
+
+</hackathon_mobile_2016.randomio.views.NumberView>
