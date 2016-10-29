@@ -113,7 +113,7 @@ public class WaitingRoom extends AppCompatActivity {
                     intent.putExtra("isHost", "false");
                     intent.putExtra("roomId", roomId);
                     intent.putExtra("team", "2"); //TODO huhu, Linh lam chua xong
-                    intent.putExtra("mode", Integer.toString(room.mode));
+                    intent.putExtra("gameMode", Integer.toString(room.mode));
                     intent.putExtra("maxNumber", Integer.toString(room.maxPlayer));
                     intent.putExtra("playerId","2");
                     intent.putExtra("playerName", "ductri");

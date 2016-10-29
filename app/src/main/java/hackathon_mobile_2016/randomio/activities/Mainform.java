@@ -39,7 +39,7 @@ public class Mainform extends AppCompatActivity {
         //createRoom.setTypeface(titleFont);
 
         final EditText roomNameEditText = (EditText)findViewById(R.id.roomNameTxt);
-//        final RadioGroup gameModeRadioGroup = (RadioGroup)findViewById(R.id.modeRadio);
+        final RadioGroup gameModeRadioGroup = (RadioGroup)findViewById(R.id.modeRadio);
         final EditText maxNoPlayer = (EditText)findViewById(R.id.maxPlayersTxt);
         Button createRoom = (Button)findViewById(R.id.btnCreateRoom);
 
@@ -50,16 +50,16 @@ public class Mainform extends AppCompatActivity {
                 //Add new room
                 String key = roomsManager.push().getKey();
                 int gameMode=1;
-//                switch (gameModeRadioGroup.getCheckedRadioButtonId()) {
-//                    case R.id.mode_easy: gameMode=0;
-//                        break;
-//                    case R.id.mode_medium: gameMode = 1;
-//                        break;
-//                    case R.id.mode_hard: gameMode = 2;
-//                        break;
-//                    default:
-//                        gameMode = 1;
-//                }
+                switch (gameModeRadioGroup.getCheckedRadioButtonId()) {
+                    case R.id.mode_easy: gameMode=0;
+                        break;
+                    case R.id.mode_medium: gameMode = 1;
+                        break;
+                    case R.id.mode_hard: gameMode = 2;
+                        break;
+                    default:
+                        gameMode = 1;
+                }
 
                 Room room = new Room(1, roomNameEditText.getText().toString(), gameMode,
                         Integer.parseInt(maxNoPlayer.getText().toString()), 0, "xxx");

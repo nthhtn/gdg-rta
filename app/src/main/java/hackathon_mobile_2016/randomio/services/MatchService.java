@@ -21,6 +21,31 @@ public class MatchService {
         return listNumberBalls;
     }
 
+    private static List<NumberBall> suffle(int ignore, List<NumberBall> lstBall) {
+        int size = lstBall.size(), j;
+        int[] index = new int[size];
+        for (int i = 0; i < size; i++) index[i] = i;
+
+        Random ran = new Random();
+        for (int i = 0; i < size; i++) {
+            j = ran.nextInt(size);
+            if (i == ignore || j == ignore) continue;
+            index[i] = j;
+            index[j] = i;
+        }
+
+        List<NumberBall> result = new ArrayList<NumberBall>();
+        NumberBall ball;
+        for (int i = 0; i < size; i++) {
+            ball = lstBall.get(i);
+            ball.setX(lstBall.get(index[i]).getX());
+            ball.setY(lstBall.get(index[i]).getY());
+            result.add(ball);
+        }
+
+        return result;
+    }
+
     private static List<NumberBall> randomMatch(int maxNumber, int gameMode) {
         Random rand = new Random();
         int sizeX, sizeY;

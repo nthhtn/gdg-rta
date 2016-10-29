@@ -40,7 +40,7 @@
         android:text="5"
         android:textSize="32dp"
         android:textAlignment="center"
-        android:textColor="@color/red"
+        android:textColor="@color/blue"
         android:layout_centerVertical="true"
         android:layout_above="@id/btnNextNumber"/>
 
@@ -52,7 +52,7 @@
         android:textSize="32dp"
         android:textAlignment="center"
         android:gravity="bottom"
-        android:textColor="@color/blue"
+        android:textColor="@color/red"
         android:layout_centerVertical="true"
         android:layout_below="@id/btnNextNumber"/>
 </RelativeLayout>

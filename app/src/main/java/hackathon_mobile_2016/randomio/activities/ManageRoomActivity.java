@@ -11,11 +11,12 @@ import hackathon_mobile_2016.randomio.R;
 
 public class ManageRoomActivity extends Activity {
     private String roomId;
+    private int gameMode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_room);
-
+        gameMode = Integer.parseInt(getIntent().getStringExtra("gameMode"));
         roomId = getIntent().getStringExtra("roomId");
 
         Button btnBegin = (Button) findViewById(R.id.btnBegin);
@@ -26,7 +27,7 @@ public class ManageRoomActivity extends Activity {
                 intent.putExtra("isHost", "true");
                 intent.putExtra("roomId", roomId);
                 intent.putExtra("team", "1");
-                intent.putExtra("mode", "1");
+                intent.putExtra("gameMode", Integer.toString(gameMode));
                 intent.putExtra("maxNumber", "10");
                 intent.putExtra("playerId","1");
                 intent.putExtra("playerName", "ductridsadas");

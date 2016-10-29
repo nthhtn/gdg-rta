@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import hackathon_mobile_2016.randomio.R;
 
@@ -62,7 +64,7 @@ public class MatchActivity extends Activity {
         isHost = Boolean.parseBoolean(getIntent().getStringExtra("isHost"));
         roomId = getIntent().getStringExtra("roomId");
         currentTeam = Integer.parseInt(getIntent().getStringExtra("team"));
-        gameMode = Integer.parseInt(getIntent().getStringExtra("mode"));
+        gameMode = Integer.parseInt(getIntent().getStringExtra("gameMode"));
         maxNumber = Integer.parseInt(getIntent().getStringExtra("maxNumber"));
         String playerId = getIntent().getStringExtra("playerId");
         String playerName = getIntent().getStringExtra("playerName");
@@ -83,7 +85,7 @@ public class MatchActivity extends Activity {
         txtTeam2 = (TextView)findViewById(R.id.btnScore2);
 
         if (isHost) {
-            final List<NumberBall> listNumberBalls = MatchService.generateNewMatch(100, 1);
+            final List<NumberBall> listNumberBalls = MatchService.generateNewMatch(100, gameMode);
             MatchService.serverStartMatch(listNumberBalls, roomId, new MatchService.GameRender() {
                 @Override
                 public void success(List<NumberBall> numberBalls) {
@@ -197,7 +199,9 @@ public class MatchActivity extends Activity {
         int heightRatio = height / 9;
 
         List<View> listButtons = new ArrayList<>();
+        int i= 0;
         for (NumberBall numberBall : listNumberBalls) {
+
             NumberView numberView = (NumberView) inflateViewFromXML(R.layout.view_number);
             numberView.setText(String.valueOf(numberBall.getValue()));
 
@@ -206,6 +210,22 @@ public class MatchActivity extends Activity {
             params.topMargin = (int) (numberBall.getY() * heightRatio * 0.9);
             numberView.setLayoutParams(params);
 
+            Random r = new Random();
+            if (gameMode==2) {
+                if (r.nextInt(100) < 60) {
+
+                    Animation animation = new TranslateAnimation(0, r.nextInt(300), 0, r.nextInt(300));
+                    animation.setStartTime(r.nextInt(50000));
+                    animation.setRepeatCount(-1);
+                    animation.setRepeatMode(Animation.REVERSE);
+                    // set Animation for 5 sec
+                    animation.setDuration(r.nextInt(2500) + 1000);
+                    //for button stops in the new position.
+                    animation.setFillAfter(true);
+                    numberView.startAnimation(animation);
+                }
+            }
+            i++;
             numberView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View numberView) {
