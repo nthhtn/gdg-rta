@@ -24,4 +24,7 @@
     <string name="id_room_demo">1412</string>
     <string name="status_demo">Ready!</string>
 
+    <string name="create_room_btn">Create Room</string>
+    <string name="random_btn">Random</string>
+
 </resources>

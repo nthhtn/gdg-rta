@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".WaitingRoomActivity"
+            android:name=".FindRoomActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <!-- <activity android:name=".WaitingRoomActivity"></activity> -->
+        <!--<activity android:name=".Wai"></activity>-->
     </application>
 
 </manifest>
