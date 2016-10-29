@@ -4,6 +4,7 @@ package hackathon_mobile_2016.randomio.model;
  * Created by ductr on 10/29/2016.
  */
 public class Room {
+    public String id;
     public int noPlayerCurrent;
     public String name;
     public int mode;

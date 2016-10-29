@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/yellowTeam"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#ffff00" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/greenTeam"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#00ff00" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/blueTeam"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#0000ff" />-->

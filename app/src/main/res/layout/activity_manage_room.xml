@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_manage_room"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@mipmap/background2"
+    tools:context="hackathon_mobile_2016.randomio.activities.Manage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="0.2"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:background="@mipmap/back_btn"
+            android:layout_weight="0"
+            android:scaleType="center"
+            android:textAlignment="center"
+            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:scaleY="0.35" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblIdRoom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/id_room"
+                android:textSize="16sp"
+                android:textStyle="normal|bold"
+                android:paddingLeft="10dp"
+                android:layout_weight="0.8"
+                android:textColor="@android:color/black"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/txtIdRoom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/id_room_demo"
+                android:layout_weight="0.2"
+                android:textColor="@android:color/black"
+                android:paddingLeft="5dp"
+                android:textSize="20sp"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblRoomName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/room"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textStyle="normal|bold"
+                android:layout_weight="0.6"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/txtRoomName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:text="@string/name_room_demo"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/team"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textStyle="normal|bold"
+                android:layout_weight="0.4"
+                android:textColor="@android:color/black" />
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:background="#FF0000"
+                android:id="@+id/spinner1"
+                android:layout_weight="0.6" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/settingBtn"
+            android:layout_height="30dp"
+            android:background="@mipmap/setting_btn"
+            android:layout_weight="0"
+            android:layout_width="30dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.13">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="*"
+            android:background="#000000"
+            android:id="@+id/tableWaiting">
+
+            <TableRow
+                android:id="@+id/tableRow"
+                android:background="#000000"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:padding="0dp">
+
+                <TextView
+                    android:id="@+id/columnId"
+                    android:text="@string/id"
+                    android:background="#444444"
+                    android:textColor="#FFFFFF"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:padding="3dip"
+                    android:layout_margin="1dp"
+                    android:textStyle="normal|bold"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/columnPlayer"
+                    android:textAlignment="center"
+                    android:layout_margin="1dp"
+                    android:background="#444444"
+                    android:textColor="#FFFFFF"
+                    android:padding="3dip"
+                    android:text="@string/player_name"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textStyle="normal|bold"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/columnTeam"
+                    android:background="#444444"
+                    android:textColor="#FFFFFF"
+                    android:textAlignment="center"
+                    android:padding="3dip"
+                    android:text="@string/team"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:textSize="20dp"
+                    android:textStyle="normal|bold"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"/>
+
+                <TextView
+                    android:id="@+id/columnStatus"
+                    android:background="#444444"
+                    android:textColor="#FFFFFF"
+                    android:textAlignment="center"
+                    android:padding="3dip"
+                    android:text="@string/status"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:textSize="20dp"
+                    android:textStyle="normal|bold"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"/>
+
+                <TextView
+                    android:id="@+id/columnOption"
+                    android:background="#444444"
+                    android:textColor="#FFFFFF"
+                    android:textAlignment="center"
+                    android:padding="3dip"
+                    android:text="@string/option"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:textStyle="normal|bold"
+                    android:textSize="20dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
+        android:layout_marginBottom="5dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical">
+
+            <!--<HorizontalScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*"
+                android:background="#000000">
+
+                <TableRow
+                    android:background="#000000"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:scrollbars="none">
+
+                    <TextView
+                        android:id="@+id/columnIdDemo1"
+                        android:text="@string/id_room_demo"
+                        android:layout_height="match_parent"
+                        android:textAlignment="center"
+                        android:gravity="center_vertical"
+                        android:textColor="@android:color/black"
+                        android:background="#FFFFFF"
+                        android:layout_span="1"
+                        android:padding="3dip"
+                        android:layout_margin="1dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/columnPlayerDemo2"
+                        android:layout_margin="1dp"
+                        android:padding="3dip"
+                        android:gravity="center_vertical"
+                        android:background="#FFFFFF"
+                        android:text="@string/player_demo"
+                        android:layout_height="match_parent"
+                        android:textColor="@android:color/black"
+                        android:layout_span="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"/>
+
+                    <TextView
+                        android:id="@+id/columnTeamDemo3"
+                        android:background="#FFFFFF"
+                        android:padding="3dip"
+                        android:gravity="center"
+                        android:text="@string/team"
+                        android:layout_height="match_parent"
+                        android:textColor="@android:color/black"
+                        android:layout_margin="1dp"
+                        android:layout_span="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"/>
+
+                    <TextView
+                        android:id="@+id/columnStatusDemo4"
+                        android:background="#FFFFFF"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/status_demo"
+                        android:layout_height="match_parent"
+                        android:textColor="@android:color/black"
+                        android:layout_margin="1dp"
+                        android:layout_span="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"/>
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnOptionDemo4"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:background="#FFFFFF"
+                        android:padding="3dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="1dp"
+                        android:layout_span="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="3">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="36dp"
+                            android:layout_weight="0.5"
+                            android:textSize="14dp"
+                            android:text="@string/option_kick"/>
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="36dp"
+                            android:textSize="14dp"
+                            android:layout_weight="0.5"
+                            android:text="@string/option_buzz"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <!--<TableRow-->
+                    <!--android:background="#000000"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="1dp"-->
+                    <!--android:scrollbars="none">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnIdDemo5"-->
+                        <!--android:text="@string/id_room_demo"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnPlayerDemo6"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:text="@string/player_demo"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="4"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnTeamDemo7"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/team"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnStatusDemo8"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnOptionDemo8"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                <!--</TableRow>-->
+
+                <!--<TableRow-->
+                    <!--android:background="#000000"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="1dp"-->
+                    <!--android:scrollbars="none">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnIdDemo9"-->
+                        <!--android:text="@string/id_room_demo"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnPlayerDemo10"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:text="@string/player_demo"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="4"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnTeamDemo11"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/team"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnStatusDemo12"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnOptionDemo12"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                <!--</TableRow>-->
+
+                <!--<TableRow-->
+                    <!--android:background="#000000"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="1dp"-->
+                    <!--android:scrollbars="none">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnIdDemo13"-->
+                        <!--android:text="@string/id_room_demo"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnPlayerDemo14"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:text="@string/player_demo"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="4"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnTeamDemo15"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/team"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnStatusDemo16"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnOptionDemo16"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                <!--</TableRow>-->
+
+                <!--<TableRow-->
+                    <!--android:background="#000000"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="1dp"-->
+                    <!--android:scrollbars="none">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnIdDemo17"-->
+                        <!--android:text="@string/id_room_demo"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnPlayerDemo18"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:text="@string/player_demo"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="4"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnTeamDemo19"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/team"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnStatusDemo20"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnOptionDemo20"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                <!--</TableRow>-->
+
+                <!--<TableRow-->
+                    <!--android:background="#000000"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="1dp"-->
+                    <!--android:scrollbars="none">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnIdDemo21"-->
+                        <!--android:text="@string/id_room_demo"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnPlayerDemo22"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:text="@string/player_demo"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="4"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnTeamDemo23"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/team"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnStatusDemo24"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/columnOptionDemo24"-->
+                        <!--android:background="#FFFFFF"-->
+                        <!--android:padding="3dip"-->
+                        <!--android:text="@string/status_demo"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:layout_margin="1dp"-->
+                        <!--android:layout_span="1"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"/>-->
+
+                <!--</TableRow>-->
+
+
+            </TableLayout>
+            <!--</HorizontalScrollView>-->
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/begin"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="100dp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/chat_btn"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>

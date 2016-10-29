@@ -2,17 +2,22 @@ package hackathon_mobile_2016.randomio.services;
 
 import android.util.Log;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import hackathon_mobile_2016.randomio.model.Game;
 import hackathon_mobile_2016.randomio.model.NumberBall;
+import hackathon_mobile_2016.randomio.model.Room;
+import hackathon_mobile_2016.randomio.model.RoomMember;
 
 /**
  * Created by ductr on 10/29/2016.
@@ -21,7 +26,9 @@ public class Network {
     private static String TAG="ductri";
     public static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
+
     public static void serverStartMatch(final String roomId, final Game gameMatch, final MatchService.GameRender gameRender) {
+
         DatabaseReference gamesManager = firebaseDatabase.getReference("game/" + roomId);
         gamesManager.child("current").setValue(0);
         gamesManager.child("lastNumber").child("id").setValue("-1");
@@ -63,8 +70,8 @@ public class Network {
 
     }
 
-
     public static void clientStartMatch(final String roomId, final MatchService.GameRender gameRender) {
+
         DatabaseReference gamesManager = firebaseDatabase.getReference("game/" + roomId);
         gamesManager.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -115,4 +122,18 @@ public class Network {
         lastNumber.child("value").setValue(number);
         lastNumber.child("team").setValue(team);
     }
+
+    public static String createRoom(Room room){
+        DatabaseReference roomManager = Network.firebaseDatabase.getReference("room");
+        String key=roomManager.push().getKey();
+        roomManager.child(key).setValue(room);
+        return key;
+    }
+
+    public static void joinRoom(String roomId,String userId){
+        RoomMember newMember=new RoomMember(userId,"noob",0,1,0);
+        DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("roomMember/"+roomId);
+        roomMemberManager.push().setValue(newMember);
+    }
+
 }

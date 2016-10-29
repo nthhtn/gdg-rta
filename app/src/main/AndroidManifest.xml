@@ -8,20 +8,53 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-        <activity android:name=".activities.MainActivity">
+<!--<<<<<<< HEAD-->
+        <!--<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>-->
+        <!--<activity android:name=".activities.MainActivity">-->
+<!--=======-->
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="landscape">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".activities.Mainform"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.WaitingRoom"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.MatchActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.ManageRoomActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.FindRoomActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.Mainform" />
-        <activity android:name=".activities.WaitingRoom" />
-        <activity
-            android:name=".activities.MatchActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape" />
+
+        <!---->
+        <!--<activity-->
+            <!--android:name=".activities.MatchActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden"-->
+            <!--android:screenOrientation="landscape" />-->
+
     </application>
 
 </manifest>
