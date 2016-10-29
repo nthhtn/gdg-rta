@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">My Application 2</string>
+
+    <string name="create_room_title">Room Information</string>
+    <string name="room_name">Room Name</string>
+    <string name="mode">Mode</string>
+    <string name="mode_easy">Easy</string>
+    <string name="mode_medium">Medium</string>
+    <string name="mode_hard">Hard</string>
+    <string name="max_player_number">Max Players</string>
+    <string name="ok_btn">Create</string>
+    <string name="back_btn">Back</string>
+
+    <string name="id_room">#</string>
+    <string name="room">Room:</string>
+    <string name="id">ID</string>
+    <string name="player_name">Player</string>
+    <string name="team">Team</string>
+    <string name="status">Status</string>
+    <string name="begin">Begin</string>
+
+    <string name="name_room_demo">AoyamaRoom</string>
+    <string name="player_demo">HellAngel</string>
+    <string name="id_room_demo">1412</string>
+    <string name="status_demo">Ready!</string>
+
+</resources>
