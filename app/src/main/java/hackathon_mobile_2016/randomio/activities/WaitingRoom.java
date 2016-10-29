@@ -43,9 +43,9 @@ public class WaitingRoom extends AppCompatActivity {
 
         tableLayout=(TableLayout)findViewById(R.id.tableWaiting);
 
-        Button button = (Button) findViewById(R.id.button3);
-
         DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("RoomMembers/"+roomId);
+
+        //Update room members
         roomMemberManager.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,6 +72,7 @@ public class WaitingRoom extends AppCompatActivity {
             }
         });
 
+        //Tracking room status to start game
         Network.firebaseDatabase.getReference("rooms/"+roomId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
