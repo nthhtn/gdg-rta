@@ -9,7 +9,12 @@ import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import hackathon_mobile_2016.randomio.R;
 
@@ -43,8 +49,14 @@ public class MatchActivity extends Activity {
     private boolean isHost = true;
     private String roomId;
     List<View> listViews = null;
+    private int currentNo;
 
     private RoomMember player;
+
+    private Button nextNumber;
+    private TextView txtTeam1;
+    private TextView txtTeam2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +64,28 @@ public class MatchActivity extends Activity {
         isHost = Boolean.parseBoolean(getIntent().getStringExtra("isHost"));
         roomId = getIntent().getStringExtra("roomId");
         currentTeam = Integer.parseInt(getIntent().getStringExtra("team"));
-        gameMode = Integer.parseInt(getIntent().getStringExtra("mode"));
+        gameMode = Integer.parseInt(getIntent().getStringExtra("gameMode"));
         maxNumber = Integer.parseInt(getIntent().getStringExtra("maxNumber"));
         String playerId = getIntent().getStringExtra("playerId");
         String playerName = getIntent().getStringExtra("playerName");
         player = new RoomMember(playerId, playerName, 0, currentTeam, 1);
 
+
+
         setContentView(R.layout.activity_match);
         layout = (RelativeLayout) findViewById(R.id.matchView);
 
+        nextNumber = (Button)findViewById(R.id.btnNextNumber);
+        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        rotate.setRepeatCount(Animation.INFINITE);
+        rotate.setRepeatMode(Animation.RESTART);
+        nextNumber.startAnimation(rotate);
+
+        txtTeam1 = (TextView)findViewById(R.id.btnScore1);
+        txtTeam2 = (TextView)findViewById(R.id.btnScore2);
+
         if (isHost) {
-            final List<NumberBall> listNumberBalls = MatchService.generateNewMatch(200, 1);
+            final List<NumberBall> listNumberBalls = MatchService.generateNewMatch(100, gameMode);
             MatchService.serverStartMatch(listNumberBalls, roomId, new MatchService.GameRender() {
                 @Override
                 public void success(List<NumberBall> numberBalls) {
@@ -78,9 +101,12 @@ public class MatchActivity extends Activity {
                         NumberView numberView = (NumberView)v;
                         if (numberView.getText().equals(Integer.toString(number))) {
                             if (!numberView.isClicked) {
-                                numberView.runDrawCircle();
+                                if (currentTeam==1) {
+                                    numberView.runDrawCircle(Color.RED);
+                                } else {
+                                    numberView.runDrawCircle(Color.BLUE);
+                                }
                             }
-
                             break;
                         }
                     }
@@ -102,7 +128,11 @@ public class MatchActivity extends Activity {
                         NumberView numberView = (NumberView)v;
                         if (numberView.getText().equals(Integer.toString(number))) {
                             if (!numberView.isClicked) {
-                                numberView.runDrawCircle();
+                                if (currentTeam==1) {
+                                    numberView.runDrawCircle(Color.RED);
+                                } else {
+                                    numberView.runDrawCircle(Color.BLUE);
+                                }
                             }
 
                             break;
@@ -111,9 +141,24 @@ public class MatchActivity extends Activity {
                 }
 
             });
-        }
 
-        DatabaseReference points = Network.firebaseDatabase.getReference("game/"+roomId+"/point");
+
+        }
+        DatabaseReference lastNumber = Network.firebaseDatabase.getReference("game/" + roomId + "/lastNumber");
+        lastNumber.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                currentNo = Integer.parseInt(dataSnapshot.child("value").getValue().toString());
+                Log.i(TAG, "current no: "+Integer.toString(currentNo));
+                nextNumber.setText(Integer.toString(currentNo+1));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //DatabaseReference points = Network.firebaseDatabase.getReference("game/"+roomId+"/point");
 
         //Tracking score
         DatabaseReference team1 = Network.firebaseDatabase.getReference("game/"+roomId+"/team1");
@@ -121,6 +166,7 @@ public class MatchActivity extends Activity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ScoreGameService.team1 = Integer.parseInt(dataSnapshot.getValue().toString());
+                txtTeam1.setText(Integer.toString(ScoreGameService.team1));
             }
 
             @Override
@@ -133,6 +179,7 @@ public class MatchActivity extends Activity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ScoreGameService.team2 = Integer.parseInt(dataSnapshot.getValue().toString());
+                txtTeam2.setText(Integer.toString(ScoreGameService.team2));
             }
 
             @Override
@@ -152,7 +199,9 @@ public class MatchActivity extends Activity {
         int heightRatio = height / 9;
 
         List<View> listButtons = new ArrayList<>();
+        int i= 0;
         for (NumberBall numberBall : listNumberBalls) {
+
             NumberView numberView = (NumberView) inflateViewFromXML(R.layout.view_number);
             numberView.setText(String.valueOf(numberBall.getValue()));
 
@@ -161,6 +210,22 @@ public class MatchActivity extends Activity {
             params.topMargin = (int) (numberBall.getY() * heightRatio * 0.9);
             numberView.setLayoutParams(params);
 
+            Random r = new Random();
+            if (gameMode==2) {
+                if (r.nextInt(100) < 60) {
+
+                    Animation animation = new TranslateAnimation(0, r.nextInt(300), 0, r.nextInt(300));
+                    animation.setStartTime(r.nextInt(50000));
+                    animation.setRepeatCount(-1);
+                    animation.setRepeatMode(Animation.REVERSE);
+                    // set Animation for 5 sec
+                    animation.setDuration(r.nextInt(2500) + 1000);
+                    //for button stops in the new position.
+                    animation.setFillAfter(true);
+                    numberView.startAnimation(animation);
+                }
+            }
+            i++;
             numberView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View numberView) {
@@ -169,20 +234,26 @@ public class MatchActivity extends Activity {
                     NumberBall numberInfo = MatchService.getNumberBallInfo(chosenNumber, 123);
 
                     if (numberInfo.getOwner() == 0) {
-                        MatchService.chooseNumber(roomId, chosenNumber, currentTeam);
-                        //button.setBackground(getResources().getDrawable(R.mipmap.ic_red_circle));
-                        view.isClicked = true;
-                        view.runDrawCircle();
-                        if (player.getTeam()==1) {
-                            ScoreGameService.team1++;
-                            ScoreGameService.updateScoreTeam1(roomId, ScoreGameService.team1);
-                            Log.i(TAG, "Score team 1: "+Integer.toString(ScoreGameService.team1));
-                        } else {
-                            ScoreGameService.team2++;
-                            ScoreGameService.updateScoreTeam2(roomId, ScoreGameService.team2);
-                            Log.i(TAG, "Score team 2: "+Integer.toString(ScoreGameService.team2));
+                        if (chosenNumber==currentNo+1) {
+                            MatchService.chooseNumber(roomId, chosenNumber, currentTeam);
+                            //button.setBackground(getResources().getDrawable(R.mipmap.ic_red_circle));
+                            view.isClicked = true;
+                            if (currentTeam==2) {
+                                view.runDrawCircle(Color.RED);
+                            } else {
+                                view.runDrawCircle(Color.BLUE);
+                            }
+                            if (player.getTeam() == 1) {
+                                ScoreGameService.team1++;
+                                ScoreGameService.updateScoreTeam1(roomId, ScoreGameService.team1);
+                                Log.i(TAG, "Score team 1: " + Integer.toString(ScoreGameService.team1));
+                            } else {
+                                ScoreGameService.team2++;
+                                ScoreGameService.updateScoreTeam2(roomId, ScoreGameService.team2);
+                                Log.i(TAG, "Score team 2: " + Integer.toString(ScoreGameService.team2));
+                            }
+                            return;
                         }
-                        return;
                     }
                 }
             });

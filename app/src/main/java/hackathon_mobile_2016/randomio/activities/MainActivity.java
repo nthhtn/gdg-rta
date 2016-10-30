@@ -58,6 +58,8 @@ public class MainActivity extends Activity {
                 if (key!=""){
                     Intent intent=new Intent(getApplicationContext(),ManageRoomActivity.class);
                     intent.putExtra("roomId",key);
+                    intent.putExtra("gameMode", Integer.toString(mode));
+
                     Network.joinRoom(key,"xxx");
                     startActivity(intent);
                 }

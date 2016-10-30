@@ -106,18 +106,21 @@
                 android:gravity="center_vertical">
 
                 <RadioButton
+                    android:id="@+id/mode_easy"
                     android:layout_height="wrap_content"
                     android:text="@string/mode_easy"
                     android:onClick="onRadioButtonClicked"
                     android:layout_width="120dp" />
 
                 <RadioButton
+                    android:id="@+id/mode_medium"
                     android:layout_height="wrap_content"
                     android:text="@string/mode_medium"
                     android:onClick="onRadioButtonClicked"
                     android:layout_width="120dp" />
 
                 <RadioButton
+                    android:id="@+id/mode_hard"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:text="@string/mode_hard"
