@@ -130,10 +130,12 @@ public class Network {
         return key;
     }
 
-    public static void joinRoom(String roomId,String userId){
+    public static String joinRoom(String roomId,String userId){
         RoomMember newMember=new RoomMember(userId,"noob",0,1,0);
         DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("roomMember/"+roomId);
-        roomMemberManager.push().setValue(newMember);
+        String key=roomMemberManager.push().getKey();
+        roomMemberManager.child(key).setValue(newMember);
+        return key;
     }
 
 }

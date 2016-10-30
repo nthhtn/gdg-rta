@@ -20,7 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import hackathon_mobile_2016.randomio.R;
 import hackathon_mobile_2016.randomio.model.Room;
@@ -59,13 +61,15 @@ public class FindRoomActivity extends Activity {
                 ArrayList<Room> roomList = new ArrayList<Room>();
                 Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
+                int i=1;
                 while (iterator.hasNext()) {
                     DataSnapshot next=iterator.next();
                     Room room = next.getValue(Room.class);
                     room.id=next.getKey();
                     roomList.add(room);
                     Log.i("Room:",room.id);
-                    addRow(room);
+                    addRow(room,i);
+                    i++;
                 }
             }
 
@@ -76,9 +80,9 @@ public class FindRoomActivity extends Activity {
         });
     }
 
-    private void addRow(Room room){
+    private void addRow(Room room,int i){
         TableRow view=(TableRow)inflateViewFromXML(R.layout.table_findroom_item);
-        ((TextView)view.findViewById(R.id.columnIdDemo1)).setText(room.id);
+        ((TextView)view.findViewById(R.id.columnIdDemo1)).setText(String.valueOf(i));
         ((TextView)view.findViewById(R.id.columnPlayerDemo2)).setText(room.name);
         switch (room.mode){
             case 0:
@@ -91,15 +95,16 @@ public class FindRoomActivity extends Activity {
                 ((ImageView)view.findViewById(R.id.imgMode)).setBackgroundResource(R.mipmap.hard_mode);
                 break;
         }
-        LinearLayout layout=(LinearLayout)view.findViewById(R.id.linearNum);
-        layout.removeAllViews();
-        for (int i=1;i<=6;i++){
-            if (i<=room.noPlayerCurrent){
-                layout.addView(inflateViewFromXML(R.layout.imageview_available));
-            } else{
-                layout.addView(inflateViewFromXML(R.layout.imageview_unavailable));
-            }
-        }
+//        LinearLayout layout=(LinearLayout) inflateViewFromXML(R.layout.linearlayout_findingroom_number_of_member);
+//        int maxPlayer = (room.maxPlayer > 6) ? 6 : room.maxPlayer;
+//        for (int i=1;i<=maxPlayer;i++){
+//            if (i<=room.noPlayerCurrent){
+//                layout.addView(inflateViewFromXML(R.layout.imageview_available));
+//            } else{
+//                layout.addView(inflateViewFromXML(R.layout.imageview_unavailable));
+//            }
+//        }
+//        view.addView(layout);
         final String key=room.id;
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +112,8 @@ public class FindRoomActivity extends Activity {
                 Intent intent=new Intent(getApplicationContext(),WaitingRoom.class);
                 intent.putExtra("roomId",key);
                 intent.putExtra("userId","xxx");
-                Network.joinRoom(key,"xxx");
+                String memberId=Network.joinRoom(key,"xxx");
+                intent.putExtra("memberId",memberId);
                 startActivity(intent);
             }
         });

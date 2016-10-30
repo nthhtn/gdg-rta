@@ -3,6 +3,7 @@ package hackathon_mobile_2016.randomio.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,12 +39,11 @@ public class WaitingRoom extends AppCompatActivity {
     private TableLayout tableLayout;
     private String roomId;
 
-    //private String playerId;
     private Room room = null;
     private RoomMember player;
 
     private String playerId="xxx";
-    private boolean ready;
+    private String memberId;
 
     List<Integer> categories = Arrays.asList(Color.BLACK,
             Color.RED,
@@ -59,26 +59,11 @@ public class WaitingRoom extends AppCompatActivity {
         setContentView(R.layout.activity_waiting_room);
 
         roomId = getIntent().getStringExtra("roomId");
-
+        memberId=getIntent().getStringExtra("memberId");
 
         tableLayout = (TableLayout) findViewById(R.id.tableRoomMember);
 
-        Button btnReady=(Button)findViewById(R.id.btnReady);
-
-        final String memberId=playerId;
-
-
-        ready=false;
-
-
-        btnReady.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                roomMemberChangesStatus(roomId,memberId,0);
-            }
-        });
-
-        DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("roomMember/" + roomId);
+        final DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("roomMember/" + roomId);
 
         roomMemberManager.addValueEventListener(new ValueEventListener() {
             @Override
@@ -88,15 +73,38 @@ public class WaitingRoom extends AppCompatActivity {
                 Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
                 while (iterator.hasNext()) {
-                    RoomMember p = iterator.next().getValue(RoomMember.class);
+                    DataSnapshot snapshot=iterator.next();
+                    RoomMember p = snapshot.getValue(RoomMember.class);
                     playersList.add(p);
                     addRow(p);
                 }
+                Log.i("WAITING", "1");
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.i(TAG, "Cancel");
+            }
+        });
+
+        Button btnReady=(Button)findViewById(R.id.btnReady);
+        btnReady.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DatabaseReference memberManager = Network.firebaseDatabase.getReference("roomMember/"+roomId+"/"+memberId+"/status");
+                memberManager.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int status=Integer.valueOf(dataSnapshot.getValue().toString());
+                        status=Math.abs(status-1);
+                        memberManager.setValue(status);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -138,10 +146,6 @@ public class WaitingRoom extends AppCompatActivity {
         tableLayout.removeAllViews();
     }
 
-    private void onMemberStatusChanged(RoomMember member) {
-        Log.i(TAG, "");
-    }
-
     private void addRow(RoomMember member){
         TableRow view=(TableRow)inflateViewFromXML(R.layout.table_waitingroom_item);
         ((TextView)view.findViewById(R.id.columnId)).setText(member.getUserId());
@@ -149,7 +153,7 @@ public class WaitingRoom extends AppCompatActivity {
         TextView team=(TextView)view.findViewById(R.id.columnTeam);
         team.setText("");
         team.setBackgroundColor(getTeamColor(member.getTeam()));
-        TextView status=(TextView)view.findViewById(R.id.columnTeam);
+        TextView status=(TextView)view.findViewById(R.id.columnStatus);
         if (member.getStatus()==1){
             status.setText("Ready");
         }
@@ -163,28 +167,5 @@ public class WaitingRoom extends AppCompatActivity {
     private View inflateViewFromXML(int resource) {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         return  inflater.inflate(resource, null, false);
-    }
-
-    private void roomMemberChangesStatus(String roomId,String memberId,int status){
-        DatabaseReference roomMemberManager = Network.firebaseDatabase.getReference("roomMember/" + roomId);
-        Query query=roomMemberManager.orderByChild("userId").equalTo(memberId);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
-                Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
-                if (iterator.hasNext()){
-                    RoomMember member=iterator.next().getValue(RoomMember.class);
-                    Log.i("Noob",member.getName());
-                } else{
-                    Log.i("No","false");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 }
